@@ -1,0 +1,44 @@
+- defaultTab: nodes
+  description: ''
+  executionEnabled: true
+  id: 7b2fe680-09b4-47e5-a29f-d86bbad5c17b
+  loglevel: INFO
+  name: servidor-web
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: 'name: entorno2 '
+  nodesSelectedByDefault: true
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - script: |-
+        sudo apt update
+        sudo apt install nginx -y
+    - configuration:
+        ansible-become: 'false'
+        ansible-binaries-dir-path: /home/rundeck/.local/bin
+        ansible-playbook: /home/rundeck/server/data/ansible/playbooks/playbook-despliegue-web.yaml
+        ansible-ssh-passphrase-option: option.password
+        ansible-ssh-use-agent: 'false'
+      nodeStep: true
+      type: com.batix.rundeck.plugins.AnsiblePlaybookWorflowNodeStep
+    - configuration:
+        ansible-become: 'false'
+        ansible-binaries-dir-path: /home/rundeck/.local/bin
+        ansible-playbook: /home/rundeck/server/data/ansible/playbooks/playbook-prueba-web.yaml
+        ansible-ssh-passphrase-option: option.password
+        ansible-ssh-use-agent: 'false'
+      nodeStep: true
+      type: com.batix.rundeck.plugins.AnsiblePlaybookWorflowNodeStep
+    keepgoing: true
+    strategy: node-first
+  uuid: 7b2fe680-09b4-47e5-a29f-d86bbad5c17b
+

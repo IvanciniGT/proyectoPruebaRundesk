@@ -1,0 +1,49 @@
+- defaultTab: nodes
+  description: ''
+  executionEnabled: true
+  id: dff979b8-eb28-4caf-b47f-7119c87edc32
+  loglevel: INFO
+  name: Ejecutar Playbook
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: entorno1
+  nodesSelectedByDefault: true
+  notification:
+    onstart:
+      email:
+        attachLog: true
+        attachLogInline: true
+        recipients: ami@yo.com
+        subject: Empezamos ! ${job.name}
+    onsuccess:
+      email:
+        attachLog: true
+        attachLogInFile: true
+        recipients: otro@correo.que.tengo
+  notifyAvgDurationThreshold: null
+  plugins:
+    ExecutionLifecycle: {}
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - configuration:
+        ansible-become: 'false'
+        ansible-binaries-dir-path: /home/rundeck/.local/bin
+        ansible-playbook: /home/rundeck/server/data/ansible/playbooks/playbook1.yaml
+        ansible-ssh-auth-type: password
+        ansible-ssh-passphrase-option: option.password
+        ansible-ssh-password-storage-path: keys/project/Ansible/contenedores-password
+        ansible-ssh-use-agent: 'false'
+        ansible-ssh-user: root
+      nodeStep: true
+      type: com.batix.rundeck.plugins.AnsiblePlaybookWorflowNodeStep
+    keepgoing: true
+    strategy: node-first
+  uuid: dff979b8-eb28-4caf-b47f-7119c87edc32
+
